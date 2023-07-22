@@ -12,6 +12,6 @@ class URLMap(db.Model):
     @classmethod
     def short_link_not_exists(cls, text):
         return (
-                text and
-                cls.query.filter_by(short=text).first() is None
+            text and
+            cls.query.filter_by(short=text).first() is None
         )
