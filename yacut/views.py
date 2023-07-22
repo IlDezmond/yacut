@@ -6,7 +6,7 @@ from .models import URLMap
 from .utils import generate_short_link
 
 
-@app.route('/', methods=("GET", "POST"))
+@app.route('/', methods=('GET', 'POST'))
 def index():
     form = URLMapForm()
     if form.validate_on_submit():
