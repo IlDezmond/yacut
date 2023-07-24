@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from flask import jsonify, request, url_for
 
 from yacut import app, db
@@ -10,8 +12,8 @@ from .utils import generate_short_link, regex_short_link_validate
 def get_original_link_api(short_url):
     original_link = URLMap.query.filter_by(short=short_url).first()
     if original_link is None:
-        raise APIError('Указанный id не найден', 404)
-    return jsonify({'url': original_link.original}), 200
+        raise APIError('Указанный id не найден', HTTPStatus.NOT_FOUND)
+    return jsonify({'url': original_link.original}), HTTPStatus.OK
 
 
 @app.route('/api/id/', methods=['POST'])
@@ -45,4 +47,4 @@ def add_link_api():
                 _external=True
             ),
         )
-    ), 201
+    ), HTTPStatus.CREATED

@@ -1,3 +1,5 @@
+from http import HTTPStatus
+
 from flask import jsonify, render_template
 
 from yacut import app, db
@@ -11,10 +13,19 @@ def invalid_api_usage(error):
 
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template('error.html', error_message='404'), 404
+    return (
+        render_template(
+            'error.html',
+            error_message=HTTPStatus.NOT_FOUND.description
+        ),
+        HTTPStatus.NOT_FOUND
+    )
 
 
 @app.errorhandler(500)
 def internal_error(error):
     db.session.rollback()
-    return render_template('error.html', error_message='500'), 500
+    return render_template(
+        'error.html',
+        error_message=HTTPStatus.INTERNAL_SERVER_ERROR.description
+    ), HTTPStatus.INTERNAL_SERVER_ERROR
