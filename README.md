@@ -47,6 +47,11 @@ python3 -m pip install --upgrade pip
 ```
 pip install -r requirements.txt
 ```
+Создание миграций:
+
+```
+flask db upgrade
+```
 Запустить сервис:
 ```
 flask run
